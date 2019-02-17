@@ -1,4 +1,4 @@
-# Client Voice Generation
+# Index Voice Generation
 
 Web-приложение для отправки жалоб на подозрительные ресурсы.
 

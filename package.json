@@ -3,10 +3,11 @@
   "version": "1.1.0",
   "private": true,
   "dependencies": {
-    "path": "^0.12.7",
-    "express": "^4.16.4",
     "@livechat/ui-kit": "^0.3.0-2",
+    "express": "^4.16.4",
+    "path": "^0.12.7",
     "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-create-reducer": "^1.2.0",
     "redux-persist": "^5.10.0",
