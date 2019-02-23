@@ -1,5 +1,12 @@
 import React from 'react'
-import {Jumbotron, Container} from 'react-bootstrap';
+import './volunteer.css'
+import {Provider} from 'react-redux'
+import configureStore from './store'
+import AppContainer from './containers/AppContainer'
+import rootSaga from './sagas'
+
+const store = configureStore();
+store.runSaga(rootSaga, store);
 
 export default class Volunteer extends React.Component {
 
@@ -11,13 +18,10 @@ export default class Volunteer extends React.Component {
 
     render() {
         return (
-            <div>
-                <Container className="d-flex align-items-center"
-                           style={{height: "100vh"}}>
-                    <Jumbotron className="m-2 w-100">
-                        <h1 className="display-4">Form Login</h1>
-                    </Jumbotron>
-                </Container>
+            <div className="bodyVol h-100">
+                <Provider store={store}>
+                    <AppContainer {...this.props}/>
+                </Provider>
             </div>
         );
     }

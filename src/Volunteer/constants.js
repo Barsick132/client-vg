@@ -1,0 +1,21 @@
+export const constants = {
+    LOGIN: "LOGIN",
+    LOGIN_ERROR_MESSAGE: 'LOGIN_ERROR_MESSAGE',
+    LOGIN_USER_LOGGED: 'LOGIN_USER_LOGGED',
+    ACTIVE_NAV_ITEM: 'ACTIVE_NAV_ITEM',
+    SIGN_OUT: 'SIGN_OUT',
+
+    REQ_WAITING: 'REQ_WAITING',
+    REQ_DATA_RECEIVED: 'REQ_DATA_RECEIVED',
+    REQ_DATA_CLEAR: 'REQ_DATA_CLEAR',
+    RQT_SET_ERR_MSG: 'REQ_DATA_CLEAR',
+    REQ_ERR_MSG_CLEAR: 'REQ_ERR_MSG_CLEAR',
+};
+
+export const vol_pages = {
+    REQUEST: 'REQUEST',
+    REG: 'REG',
+    NOT_FOUND_VOL: "NOT_FOUND_VOL"
+};
+
+export default constants;

@@ -37,7 +37,7 @@ function* sendMsg(store, {payload}) {
             }).then((res) => res.json());
         });
 
-        if (data.status !== 'OK') new Error('status don\'t OK');
+        if (data.status !== 'OK') throw new Error('status don\'t OK');
     } catch (err) {
         console.error(FILE, FUNC_NAME, err);
 
@@ -86,7 +86,7 @@ function* getAllMsgs(store) {
             }).then((res) => res.json());
         });
 
-        if (data.status !== 'OK') new Error('status don\'t OK');
+        if (data.status !== 'OK') throw new Error('status don\'t OK');
 
         console.log(FILE, FUNC_NAME, 'Messages received');
         const last_msg_id = yield select(getLastMsgID);
@@ -162,7 +162,7 @@ function* getDialogInfo(store) {
             }).then((res) => res.json());
         });
 
-        if (data.status !== 'OK') new Error('status don\'t OK');
+        if (data.status !== 'OK') throw new Error('status don\'t OK');
 
         if (data.interlocutor === null) {
             console.log(FILE, FUNC_NAME, 'don\'t connected interlocutor');

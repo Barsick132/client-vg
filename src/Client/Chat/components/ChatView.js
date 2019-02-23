@@ -16,6 +16,7 @@ import {
     SendButton,
     Bubble
 } from '@livechat/ui-kit'
+import './ChatView.css'
 
 const ChatView = ({show, onShowChat, events = [], onMessageSend}) => {
     return (
@@ -29,8 +30,8 @@ const ChatView = ({show, onShowChat, events = [], onMessageSend}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <ThemeProvider>
-                        <div>
-                            <div style={{height: "450px"}}>
+                        <div style={{background: 'black'}}>
+                            <div className="chatSize">
                                 <MessageList active containScrollInSubtree>
                                     {events.map((messageGroup) => (
                                         <MessageGroup
