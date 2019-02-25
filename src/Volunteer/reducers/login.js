@@ -23,10 +23,12 @@ export default createReducer(initialState, {
         if (action.payload.remember) {
             localStorage.setItem(CONST.TOKEN, action.payload.token);
             localStorage.setItem(CONST.VOL_ID, action.payload.vol_id);
+            localStorage.setItem(CONST.VOL_FULLNAME, action.payload.vol_fullname);
             localStorage.setItem(CONST.VOL_ADMIN, action.payload.vol_admin);
         } else {
             sessionStorage.setItem(CONST.TOKEN, action.payload.token);
             sessionStorage.setItem(CONST.VOL_ID, action.payload.vol_id);
+            sessionStorage.setItem(CONST.VOL_FULLNAME, action.payload.vol_fullname);
             sessionStorage.setItem(CONST.VOL_ADMIN, action.payload.vol_admin);
         }
 
@@ -39,9 +41,11 @@ export default createReducer(initialState, {
     [C.SIGN_OUT] (state, action) {
         localStorage.removeItem(CONST.TOKEN);
         localStorage.removeItem(CONST.VOL_ID);
+        localStorage.removeItem(CONST.VOL_FULLNAME);
         localStorage.removeItem(CONST.VOL_ADMIN);
         sessionStorage.removeItem(CONST.TOKEN);
         sessionStorage.removeItem(CONST.VOL_ID);
+        sessionStorage.removeItem(CONST.VOL_FULLNAME);
         sessionStorage.removeItem(CONST.VOL_ADMIN);
 
         return {}

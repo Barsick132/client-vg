@@ -1,5 +1,6 @@
 import {createReducer} from 'redux-create-reducer'
 import C from '../constants'
+import {storageKeys as CONST} from "../../constants";
 
 const FILE = './src/Volunteer/reducers/request.js';
 
@@ -22,7 +23,7 @@ export default createReducer(initialState, {
             req_data: undefined
         }
     },
-    [C.RQT_SET_ERR_MSG](state, action) {
+    [C.REQ_SET_ERR_MSG](state, action) {
         console.log(FILE, C.REQ_DATA_CLEAR, '\n', 'start');
 
         return {
@@ -38,6 +39,9 @@ export default createReducer(initialState, {
             errorMsgRqt: undefined
         }
     },
+    [C.SIGN_OUT] (state, action) {
+        return {}
+    }
 })
 
 export const getReqData = (state) => state.request.req_data;

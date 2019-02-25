@@ -8,8 +8,9 @@ export const constants = {
     REQ_WAITING: 'REQ_WAITING',
     REQ_DATA_RECEIVED: 'REQ_DATA_RECEIVED',
     REQ_DATA_CLEAR: 'REQ_DATA_CLEAR',
-    RQT_SET_ERR_MSG: 'REQ_DATA_CLEAR',
+    REQ_SET_ERR_MSG: 'REQ_SET_ERR_MSG',
     REQ_ERR_MSG_CLEAR: 'REQ_ERR_MSG_CLEAR',
+    REQ_CLOSE: 'REQ_CLOSE'
 };
 
 export const vol_pages = {

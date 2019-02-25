@@ -30,7 +30,7 @@ const ChatView = ({show, onShowChat, events = [], onMessageSend}) => {
                 </Modal.Header>
                 <Modal.Body>
                     <ThemeProvider>
-                        <div style={{background: 'black'}}>
+                        <div>
                             <div className="chatSize">
                                 <MessageList active containScrollInSubtree>
                                     {events.map((messageGroup) => (

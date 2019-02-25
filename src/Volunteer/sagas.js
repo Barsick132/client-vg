@@ -1,8 +1,14 @@
 import C from './constants'
-import {call, takeEvery, put} from 'redux-saga/effects'
-import CONST from "../constants";
+import {call, put, takeEvery} from 'redux-saga/effects'
+import {constants as CONST} from "../constants";
 import {actShowErrorMessage, actVolLogged} from "./actions/login";
-import {actReqDataReceived, actReqErrMsgClear, actReqSetErrMsg, actWaitingReq} from "./actions/request";
+import {
+    actReqDataClear,
+    actReqDataReceived,
+    actReqErrMsgClear,
+    actReqSetErrMsg,
+    actWaitingReq
+} from "./actions/request";
 import React from "react";
 
 const FILE = './src/Volunteer/sagas.js';
@@ -77,6 +83,7 @@ function* onWaitingReq(store, {payload}) {
                 break;
             }
             case 'NOT FOUND RQT': {
+                yield put(actReqDataClear());
                 yield new Promise(
                     resolve => setTimeout(resolve, 2000)
                 );
@@ -93,19 +100,60 @@ function* onWaitingReq(store, {payload}) {
         // Выводи сообщение о том, что не получилось запросить данные и
         // предложить повторить попытку
 
+        yield put(actReqDataClear());
         yield put(actReqSetErrMsg({
-            head: 'Упс' + <span role="img" aria-label="DISAPPOINTED BUT RELIEVED FACE">&nbsp;&#128549;&nbsp;</span>,
-            body: 'При запросе заявки произошла какая-то ошибка' +
-            <span role="img" aria-label="THINKING FACE">&nbsp;&#129300;&nbsp;</span> + '. Попробуем еще раз?',
+            head: {__html: 'Упс<span role="img" aria-label="DISAPPOINTED BUT RELIEVED FACE">&nbsp;&#128549;&nbsp;</span>'},
+            body: {
+                __html: 'При запросе заявки произошла какая-то ошибка' +
+                '<span role="img" aria-label="THINKING FACE">&nbsp;&#129300;&nbsp;</span>' +
+                'Попробуем еще раз?'
+            },
             buttons: [
                 {
                     text: 'Да',
-                    click: () => store.dispatch(
-                        actReqErrMsgClear(),
-                        actWaitingReq(payload.vol_id, payload.token)
-                    )
+                    click: (vol_id, token) => {
+                        store.dispatch(actReqErrMsgClear());
+                        store.dispatch(actWaitingReq(vol_id, token));
+                    }
                 }
             ]
+        }))
+    }
+}
+
+function* onCloseReq(store, {payload}) {
+    const FUNC_NAME = "onCloseReq(store, {payload})";
+    console.log(FILE, FUNC_NAME, '\n', 'start');
+
+    const body = {
+        rqt_id: parseInt(payload.rqt_id),
+        vol_id: parseInt(payload.vol_id),
+        token: payload.token
+    };
+
+    try {
+        const data = yield call(() => {
+            return fetch(CONST.SERVER_HOST + 'closeRequest', {
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST',
+                body: JSON.stringify(body)
+            }).then((res) => res.json());
+        });
+
+        console.log(FILE, FUNC_NAME, '\nRequest status: ', data.status);
+        if (data.status !== 'OK') throw Error('status don\'t OK');
+
+        yield put(actWaitingReq(payload.vol_id, payload.token));
+    } catch (err) {
+        console.error(FILE, FUNC_NAME, err);
+
+        yield put(actReqSetErrMsg({
+            head: {__html: 'Оу<span role="img" aria-label="FACE WITH OPEN MOUTH">&nbsp;&#128558;&nbsp;</span>'},
+            body: {
+                __html: 'Не удалось завершить текущий запрос' +
+                '<span role="img" aria-label="THINKING FACE">&nbsp;&#129300;&nbsp;</span>' +
+                'Попробуй перезагрузить страницу или перезайти'
+            }
         }))
     }
 }
@@ -113,4 +161,5 @@ function* onWaitingReq(store, {payload}) {
 export default function* (store) {
     yield takeEvery(C.LOGIN, onLogin, store);
     yield takeEvery(C.REQ_WAITING, onWaitingReq, store);
+    yield takeEvery(C.REQ_CLOSE, onCloseReq, store);
 }

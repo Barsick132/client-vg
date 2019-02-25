@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import App from '../components/App'
 import {actLogin, actSignOut} from "../actions/login";
 import {actActivNavItem} from "../actions/volunteer";
-import {actWaitingReq} from "../actions/request";
+import {actWaitingReq, actCloseReq} from "../actions/request";
 import {getErrorMessage, getRememberMe} from '../reducers/login'
 import {getActivePage} from '../reducers/volunteer'
 import {getReqData, getReqErrMsg} from '../reducers/request'
@@ -53,6 +53,14 @@ const mapDispatchToProps = dispatch => ({
 
         dispatch(
             actWaitingReq(vol_id, token)
+        )
+    },
+    closeReq: (rqt_id, vol_id, token) => {
+        const FUNC = 'closeReq(rqt_id, vol_id, token)';
+        console.log(FILE, FUNC, '\n', 'start');
+
+        dispatch(
+            actCloseReq(rqt_id, vol_id, token)
         )
     }
 });

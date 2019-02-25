@@ -1,0 +1,27 @@
+.chatSize{
+    height: 150px;
+}
+
+@media (min-height: 430px) {
+    .chatSize{
+        height: 250px;
+    }
+}
+
+@media (min-height: 500px) {
+    .chatSize{
+        height: 330px;
+    }
+}
+
+@media (min-height: 600px) {
+    .chatSize{
+        height: 430px;
+    }
+}
+
+@media (min-height: 650px) {
+    .chatSize{
+        height: 480px;
+    }
+}

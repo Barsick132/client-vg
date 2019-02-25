@@ -49,7 +49,7 @@ export const actReqSetErrMsg = function ({head, body, buttons}) {
     console.log(FILE, FUNC, '\n', 'start');
 
     return {
-        type: C.RQT_SET_ERR_MSG,
+        type: C.REQ_SET_ERR_MSG,
         payload: {
             head: head,
             body: body,
@@ -64,5 +64,19 @@ export const actReqErrMsgClear = function () {
 
     return {
         type: C.REQ_ERR_MSG_CLEAR
+    }
+};
+
+export const actCloseReq = function (rqt_id, vol_id, token) {
+    const FUNC = 'actReqSetErrMsg()';
+    console.log(FILE, FUNC, '\n', 'start');
+
+    return {
+        type: C.REQ_CLOSE,
+        payload: {
+            rqt_id: rqt_id,
+            vol_id: vol_id,
+            token: token
+        }
     }
 };
